@@ -104,14 +104,33 @@ class Downloader:
                 "logger": self.logger,
                 "quiet": True,
                 "no_warnings": True,
+                "writethumbnail": True,
+                "embedthumbnail": True,
             }
 
             if download_type == DownloadType.AUDIO:
-                ydl_opts["postprocessors"] = [{
-                    "key": "FFmpegExtractAudio",
-                    "preferredcodec": "mp3",
-                    "preferredquality": "192",
-                }]
+                ydl_opts["postprocessors"] = [
+                    {
+                        "key": "FFmpegExtractAudio",
+                        "preferredcodec": "mp3",
+                        "preferredquality": "192",
+                    },
+                    {
+                        "key": "EmbedThumbnail",
+                        "already_have_thumbnail": False,
+                    },
+                    {
+                        "key": "FFmpegMetadata",
+                        "add_metadata": True,
+                    }
+                ]
+            else:
+                ydl_opts["postprocessors"] = [
+                    {
+                        "key": "EmbedThumbnail",
+                        "already_have_thumbnail": False,
+                    }
+                ]
 
             if is_playlist_url(url):
                 ydl_opts["noplaylist"] = False
