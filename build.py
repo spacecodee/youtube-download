@@ -30,15 +30,21 @@ def create_app():
         "-m", "PyInstaller",
         "--name=YouTube Download",
         "--windowed",
-        "--onefile",
+        "--onedir",  # Changed from --onefile for better compatibility
+        "--clean",
         "--icon=assets/icon.icns" if Path("assets/icon.icns").exists() else "",
         "--add-data=src:src",
-        "--hidden-import=PyQt6",
+        "--hidden-import=PyQt6.QtCore",
+        "--hidden-import=PyQt6.QtGui",
+        "--hidden-import=PyQt6.QtWidgets",
         "--hidden-import=yt_dlp",
         "--hidden-import=certifi",
         "--hidden-import=dotenv",
+        "--collect-all=yt_dlp",
+        "--collect-all=certifi",
         "--osx-bundle-identifier=com.youtubedownload.app",
         "--noconfirm",
+        "--debug=all",  # Add debug info for troubleshooting
         "main.py"
     ]
 
@@ -49,6 +55,13 @@ def create_app():
         result = subprocess.run(cmd, check=True, capture_output=True, text=True)
         print(result.stdout)
         print("  ✓ Application built successfully!")
+
+        # Print instructions for running on macOS
+        print("\n⚠️  macOS Security Note:")
+        print("  If the app won't open, run these commands:")
+        print("  xattr -cr 'dist/YouTube Download.app'")
+        print("  codesign --force --deep --sign - 'dist/YouTube Download.app'")
+
         return True
     except subprocess.CalledProcessError as e:
         print(f"  ✗ Build failed: {e}")
