@@ -27,7 +27,7 @@ QMainWindow {{
 QWidget {{
     background-color: {COLORS['background']};
     color: {COLORS['text']};
-    font-family: 'Segoe UI', 'San Francisco', 'Helvetica', Arial, sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Arial, sans-serif;
     font-size: 13px;
 }}
 
