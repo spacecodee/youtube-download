@@ -1,16 +1,27 @@
-# This is a sample Python script.
+"""YouTube Download - Main application entry point."""
+import sys
+from PyQt6.QtWidgets import QApplication
 
-# Press ⌃R to execute it or replace it with your code.
-# Press Double ⇧ to search everywhere for classes, files, tool windows, actions, and settings.
-
-
-def print_hi(name):
-    # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press ⌘F8 to toggle the breakpoint.
+from src.gui.main_window import MainWindow
+from src.gui.styles import STYLESHEET
+from src.services.logger import app_logger
 
 
-# Press the green button in the gutter to run the script.
-if __name__ == '__main__':
-    print_hi('PyCharm')
+def main() -> None:
+    """Initialize and run the application."""
+    app_logger.info("Starting YouTube Download application")
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
+    app = QApplication(sys.argv)
+    app.setApplicationName("YouTube Download")
+    app.setOrganizationName("YouTube Download")
+    app.setStyleSheet(STYLESHEET)
+
+    window = MainWindow()
+    window.show()
+
+    app_logger.info("Application window displayed")
+    sys.exit(app.exec())
+
+
+if __name__ == "__main__":
+    main()

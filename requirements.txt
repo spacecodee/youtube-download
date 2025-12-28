@@ -1,0 +1,11 @@
+# Core dependencies
+PyQt6==6.10.1
+yt-dlp==2025.12.26.233056.dev0
+
+# Utilities
+python-dotenv==1.2.1
+
+# Database (built-in with Python, but we may need these for migrations)
+# SQLite is included in Python standard library
+
+pyqt6-sip
