@@ -5,3 +5,4 @@ pytest-qt==4.5.0
 pylint==4.0.4
 mypy==1.19.1
 black==26.1a1
+pyinstaller==6.17.0
